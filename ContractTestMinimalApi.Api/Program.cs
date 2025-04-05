@@ -2,10 +2,9 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
-builder.Services.AddControllers();
-// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+builder.Services.AddAuthorization();
 
 var app = builder.Build();
 
@@ -20,6 +19,14 @@ app.UseHttpsRedirection();
 
 app.UseAuthorization();
 
-app.MapControllers();
+app.MapGet("/api/getExpenseById/{id:int}", (int id) =>
+{
+    return Results.Ok(new
+    {
+        Id = id,
+        Name = "Test Expense",
+        Amount = 100.00,
+    });
+});
 
 app.Run();
