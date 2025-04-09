@@ -38,6 +38,15 @@ namespace ContractTestingApi
                 });
             });
 
+            app.MapGet("/api/getAllExpenses", () =>
+            {
+                return Results.Ok(new[]
+                {
+                    new { Id = 1, Name = "Test Expense 1", Amount = 100.00 },
+                    new { Id = 2, Name = "Test Expense 2", Amount = 200.00 },
+                });
+            });
+
             return app;
         }
 

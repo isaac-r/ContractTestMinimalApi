@@ -9,6 +9,12 @@ namespace ContractTestMinimalApi.Api
             var response = await httpClient.GetFromJsonAsync<Expense>($"/api/getExpenseById/{id}");
             return response!;
         }
+
+        public async Task<IEnumerable<Expense>> GetAllExpenses()
+        {
+            var response = await httpClient.GetFromJsonAsync<IEnumerable<Expense>>("/api/getAllExpenses");
+            return response!;
+        }
     }
 
     public record Expense

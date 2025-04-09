@@ -45,5 +45,28 @@ namespace ContractTestMinimalApi.Test
                 .WithFileSource(new FileInfo(pactFile))
                 .Verify();
         }
+
+        [Fact]
+        [Trait("Category", "Provider")]
+        public async Task GivenValidRequest_WhenGetAllExpenses_ThenExpectedResponse()
+        {
+            await _fixture.InitializeAsync();
+
+            var pactFile = $"{_directory}/AllExpensesConsumer-AllExpensesProvider.json";
+
+            var config = new PactVerifierConfig
+            {
+                Outputters = new List<IOutput>
+                {
+                    new XunitOutput(_output)
+                },
+                LogLevel = PactLogLevel.Information
+            };
+
+            new PactVerifier("AllExpensesProvider", config)
+                .WithHttpEndpoint(new Uri("https://localhost:5000"))
+                .WithFileSource(new FileInfo(pactFile))
+                .Verify();
+        }
     }
 }
